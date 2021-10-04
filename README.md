@@ -1,1 +1,1 @@
-# wordrpess-docker-template
+# wordpress-docker-template
