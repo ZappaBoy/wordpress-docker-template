@@ -2,6 +2,6 @@
 .idea
 *.log
 tmp/
-
-
 .env
+db_data
+wordpress_data
