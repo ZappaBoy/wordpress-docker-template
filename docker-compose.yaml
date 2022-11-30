@@ -1,24 +1,27 @@
-version: "3.9"
+version: "3"
 
 services:
-  mysql:
-    image: mysql:latest
-    volumes:
-      - db_data:/var/lib/mysql
-    restart: always
+  mariadb:
+    image: mariadb:latest
+    restart: unless-stopped
     env_file: .env
+    volumes:
+      - ./db_data:/var/lib/mysql
+    networks:
+      - wordpress_network
 
   wordpress:
-    depends_on:
-      - mysql
     image: wordpress:latest
-    volumes:
-      - wordpress_data:/var/www/html
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+    env_file: .env
     ports:
       - "${PORT}:80"
-    restart: always
-    env_file: .env
+    volumes:
+      - ./wordpress_data:/var/www/html
+    networks:
+      - wordpress_network
 
-volumes:
-  db_data: {}
-  wordpress_data: {}
+networks:
+  wordpress_network:
