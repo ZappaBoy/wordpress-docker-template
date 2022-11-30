@@ -11,6 +11,7 @@ services:
       - wordpress_network
 
   wordpress:
+
     image: wordpress:latest
     depends_on:
       - mariadb
